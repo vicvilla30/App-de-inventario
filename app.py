@@ -25,11 +25,15 @@ def init_db():
     conn.commit()
     conn.close()
 
-def get_products():
+# ---------- FUNCIONES ----------
+def get_products(busqueda=""):
     conn = sqlite3.connect("inventario.db")
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM productos")
+    if busqueda:
+        cursor.execute("SELECT * FROM productos WHERE nombre LIKE ?", ('%' + busqueda + '%',))
+    else:
+        cursor.execute("SELECT * FROM productos")
     rows = cursor.fetchall()
     conn.close()
     return rows
@@ -70,11 +74,45 @@ def delete_product(id):
         conn.commit()
 
 # ---------- RUTAS ----------
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def index():
-    productos = get_products()
+    busqueda = ""
+    categoria_seleccionada = "Todas"
+
+    if request.method == "POST":
+        busqueda = request.form.get("busqueda", "").strip()
+        categoria_seleccionada = request.form.get("categoria", "Todas")
+
+    conn = sqlite3.connect("inventario.db")
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+
+    query = "SELECT * FROM productos WHERE 1=1"
+    params = []
+
+    if busqueda:
+        query += " AND nombre LIKE ?"
+        params.append('%' + busqueda + '%')
+
+    if categoria_seleccionada != "Todas":
+        query += " AND categoria = ?"
+        params.append(categoria_seleccionada)
+
+    cursor.execute(query, params)
+    productos = cursor.fetchall()
+    conn.close()
+
+    # Obtener lista de categorías únicas para el select
+    categorias = [row["categoria"] for row in get_products()]
+    categorias = sorted(list(set(categorias)))
+
     valor_total = sum(p["cantidad"] * p["precio_unitario"] for p in productos)
-    return render_template("index.html", productos=productos, valor_total=valor_total)
+    return render_template("index.html", 
+                           productos=productos, 
+                           valor_total=valor_total,
+                           busqueda=busqueda,
+                           categorias=categorias,
+                           categoria_seleccionada=categoria_seleccionada)
 
 @app.route("/agregar", methods=["GET", "POST"])
 def agregar():
@@ -157,4 +195,11 @@ def exportar_excel():
 # ---------- INICIAR APP ----------
 if __name__ == "__main__":
     init_db()
+    app.run(host="0.0.0.0", port=5000, debug=True)
+
+
+# ---------- INICIAR APP ----------
+if __name__ == "__main__":
+    init_db()
     app.run(debug=True)
+
