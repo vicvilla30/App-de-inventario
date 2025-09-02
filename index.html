@@ -9,6 +9,25 @@
 <div class="container mt-4">
   <h1 class="text-center mb-4">📦 Inventario</h1>
 
+  <!-- Formulario búsqueda -->
+  <form method="POST" class="row g-2 mb-3">
+    <div class="col-md-5">
+        <input type="text" class="form-control" name="busqueda" placeholder="Buscar por nombre..." value="{{ busqueda }}">
+    </div>
+    <div class="col-md-5">
+        <select name="categoria" class="form-select">
+            <option value="Todas" {% if categoria_seleccionada=="Todas" %}selected{% endif %}>Todas</option>
+            {% for cat in categorias %}
+            <option value="{{ cat }}" {% if categoria_seleccionada==cat %}selected{% endif %}>{{ cat }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-primary w-100">🔍 Filtrar</button>
+    </div>
+</form>
+
+
   <!-- Botones de acciones -->
   <div class="mb-3 d-flex justify-content-between">
     <a href="{{ url_for('agregar') }}" class="btn btn-success">➕ Agregar Producto</a>
@@ -42,7 +61,7 @@
           <td>{{ producto["nombre"] }}</td>
           <td>{{ producto["categoria"] }}</td>
           <td>{{ producto["cantidad"] }}</td>
-          <td>{{ producto["precio_unitario"] }}</td>
+          <td>${{ "%.2f"|format(producto["precio_unitario"]) }}</td>
           <td>{{ producto["ubicacion"] }}</td>
           <td>{{ producto["proveedor"] }}</td>
           <td>
@@ -55,7 +74,7 @@
     </table>
   </div>
 
-  <h4 class="mt-3">💰 Valor Total: {{ valor_total }}</h4>
+  <h4 class="mt-3">💰 Valor Total: ${{ "%.2f"|format(valor_total) }}</h4>
 </div>
 </body>
 </html>
