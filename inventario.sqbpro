@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="inventario.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="1"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1227"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><table title="productos" custom_title="0" dock_id="1" table="4,9:mainproductos"/><dock_state state="000000ff00000000fd00000001000000020000035700000260fc0100000001fb000000160064006f0063006b00420072006f00770073006500310100000000000003570000012500ffffff000002690000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="productos" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="76"/><column index="2" value="55"/><column index="3" value="143"/><column index="4" value="255"/><column index="5" value="95"/><column index="6" value="57"/><column index="7" value="94"/><column index="8" value="79"/><column index="9" value="95"/><column index="10" value="159"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1*">DROP TABLE IF EXISTS productos;
+
+CREATE TABLE productos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    codigo TEXT,
+    nombre TEXT,
+    descripcion TEXT,
+    categoria TEXT,
+    cantidad INTEGER,
+    precio_unitario REAL,
+    ubicacion TEXT,
+    proveedor TEXT
+);
+
+INSERT INTO productos (codigo, nombre, descripcion, categoria, cantidad, precio_unitario, ubicacion, proveedor) VALUES
+('P001', 'Monitor 24&quot;', '', 'Electrónica', 10, 150.00, 'Almacén A', 'Proveedor X'),
+('P002', 'Teclado Mecánico', '', 'Periféricos', 20, 45.00, 'Almacén B', 'Proveedor Y'),
+('P003', 'Mouse Inalámbrico', '', 'Periféricos', 35, 25.00, 'Almacén B', 'Proveedor Y'),
+('P004', 'Laptop Dell XPS 13', '', 'Computadoras', 5, 1200.00, 'Almacén C', 'Proveedor Z'),
+('P005', 'Laptop HP Envy', '', 'Computadoras', 7, 950.00, 'Almacén C', 'Proveedor Z'),
+('P006', 'Disco SSD 1TB', '', 'Almacenamiento', 50, 120.00, 'Almacén D', 'Proveedor A'),
+('P007', 'Memoria RAM 16GB', '', 'Almacenamiento', 40, 75.00, 'Almacén D', 'Proveedor A'),
+('P008', 'Impresora Laser', '', 'Periféricos', 8, 300.00, 'Almacén E', 'Proveedor B'),
+('P009', 'Router WiFi 6', '', 'Redes', 12, 150.00, 'Almacén F', 'Proveedor C'),
+('P010', 'Switch 24 Puertos', '', 'Redes', 6, 250.00, 'Almacén F', 'Proveedor C'),
+('P011', 'Auriculares Gaming', '', 'Periféricos', 25, 60.00, 'Almacén B', 'Proveedor Y'),
+('P012', 'Webcam HD', '', 'Periféricos', 15, 80.00, 'Almacén B', 'Proveedor Y'),
+('P013', 'Silla Ergonómica', '', 'Mobiliario', 10, 200.00, 'Almacén G', 'Proveedor D'),
+('P014', 'Mesa Oficina', '', 'Mobiliario', 5, 350.00, 'Almacén G', 'Proveedor D'),
+('P015', 'Proyector LED', '', 'Electrónica', 4, 500.00, 'Almacén A', 'Proveedor X'),
+('P016', 'Pantalla TV 55&quot;', '', 'Electrónica', 3, 700.00, 'Almacén A', 'Proveedor X'),
+('P017', 'UPS 1500VA', '', 'Electrónica', 9, 220.00, 'Almacén H', 'Proveedor E'),
+('P018', 'Cable HDMI 2m', '', 'Accesorios', 100, 10.00, 'Almacén I', 'Proveedor F'),
+('P019', 'Cargador Portátil 10000mAh', '', 'Accesorios', 60, 25.00, 'Almacén I', 'Proveedor F'),
+('P020', 'Tablet Samsung Galaxy', '', 'Computadoras', 12, 350.00, 'Almacén C', 'Proveedor Z');
+
+</sql><current_tab id="0"/></tab_sql></sqlb_project>

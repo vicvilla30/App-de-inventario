@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Eliminar Producto</title>
+<style>
+body { font-family: Arial; text-align: center; margin-top: 50px; }
+button { padding: 10px 20px; margin: 10px; }
+</style>
+</head>
+<body>
+<h1>⚠️ Confirmar Eliminación</h1>
+<p>¿Seguro que quieres eliminar <strong>{{ product[2] }}</strong>?</p>
+<form method="POST">
+<button type="submit" style="background:red; color:white;">🗑️ Eliminar</button>
+<a href="{{ url_for('index') }}"><button type="button">Cancelar</button></a>
+</form>
+</body>
+</html>

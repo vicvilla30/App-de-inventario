@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inventario</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        table { border-collapse: collapse; width: 90%; margin: auto; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background: #4CAF50; color: white; }
+        tr:nth-child(even) { background: #f2f2f2; }
+        a { text-decoration: none; }
+    </style>
+</head>
+<body>
+    <h1>📦 Inventario</h1>
+
+    <!-- Formulario de búsqueda y filtros -->
+    <form method="POST">
+        <input type="text" name="busqueda" placeholder="Buscar..." value="{{ busqueda }}">
+        <select name="categoria">
+            <option value="Todas" {% if categoria_seleccionada == "Todas" %}selected{% endif %}>Todas</option>
+            {% for cat in categorias %}
+                <option value="{{ cat }}" {% if categoria_seleccionada == cat %}selected{% endif %}>{{ cat }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">🔍 Buscar</button>
+    </form>
+
+    <br>
+    <a href="{{ url_for('agregar') }}">➕ Agregar Producto</a>
+    <br><br>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Categoría</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Ubicación</th>
+                <th>Proveedor</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in productos %}
+            <tr>
+                <td>{{ producto["id"] }}</td>
+                <td>{{ producto["codigo"] }}</td>
+                <td>{{ producto["nombre"] }}</td>
+                <td>{{ producto["categoria"] }}</td>
+                <td>{{ producto["cantidad"] }}</td>
+                <td>{{ producto["precio_unitario"] }}</td>
+                <td>{{ producto["ubicacion"] }}</td>
+                <td>{{ producto["proveedor"] }}</td>
+                <td>
+                    <a href="{{ url_for('editar', id=producto['id']) }}">✏️ Editar</a> |
+                    <a href="{{ url_for('eliminar', id=producto['id']) }}">🗑️ Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>💰 Valor Total: {{ valor_total }}</h3>
+</body>
+</html>
