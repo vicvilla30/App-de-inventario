@@ -9,26 +9,13 @@
 <div class="container mt-4">
   <h1 class="text-center mb-4">📦 Inventario</h1>
 
-  <!-- Formulario búsqueda -->
-  <form method="POST" class="row g-2 mb-3">
-    <div class="col-md-6">
-      <input type="text" class="form-control" name="busqueda" placeholder="Buscar..." value="{{ busqueda }}">
-    </div>
-    <div class="col-md-4">
-      <select name="categoria" class="form-select">
-        <option value="Todas" {% if categoria_seleccionada=="Todas" %}selected{% endif %}>Todas</option>
-        {% for cat in categorias %}
-        <option value="{{ cat }}" {% if categoria_seleccionada==cat %}selected{% endif %}>{{ cat }}</option>
-        {% endfor %}
-      </select>
-    </div>
-    <div class="col-md-2">
-      <button type="submit" class="btn btn-primary w-100">🔍 Buscar</button>
-    </div>
-  </form>
-
-  <div class="mb-3">
+  <!-- Botones de acciones -->
+  <div class="mb-3 d-flex justify-content-between">
     <a href="{{ url_for('agregar') }}" class="btn btn-success">➕ Agregar Producto</a>
+    <div>
+      <a href="{{ url_for('exportar_csv') }}" class="btn btn-outline-primary me-2">📄 Exportar CSV</a>
+      <a href="{{ url_for('exportar_excel') }}" class="btn btn-outline-success">📊 Exportar Excel</a>
+    </div>
   </div>
 
   <!-- Tabla de productos -->
